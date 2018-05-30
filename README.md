@@ -21,6 +21,12 @@ cd ../
 
 # Usage
 
+`HelloTF` in [TensorFlow for Java](https://www.tensorflow.org/install/install_java).
+```
+clj -m hello-tf
+```
+
+main.
 ```
 clj -m main
 ```
