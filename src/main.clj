@@ -31,8 +31,8 @@
          .build
          (.output 0))))
   ([g name value]
-   (cond (integer? value) (get-constant g name value Integer)
-         (float? value) (get-constant g name value Float)
+   (cond (integer? value) (get-constant g name (Integer. value) Integer)
+         (float? value) (get-constant g name (Float. value) Float)
          (and (vector? value) (integer? (first value))) (get-constant g name (int-array value) Integer)
          :else (get-constant g name value String))))
 
