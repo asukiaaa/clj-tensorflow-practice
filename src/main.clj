@@ -102,12 +102,35 @@
         (.get 0)
         (.expect Float))))
 
+(defn get-label-probabilities [graph-pb image]
+  (let [g (new Graph)
+        _ (.importGraphDef g graph-pb)
+        result (-> (new Session g)
+                   .runner
+                   (.feed "input" image)
+                   (.fetch "output")
+                   .run
+                   (.get 0)
+                   (.expect Float))
+        rshape (.shape result)]
+    (prn rshape)
+    (prn :nth0 (nth rshape 0))
+    (prn :nth1 (nth rshape 1))
+    #_(when (or (not= 2 (.numDimensions result)) (not= 1 (nth rshape 0)))
+      (throw (RuntimeException "unexpected dimension or shape")))
+    (let [nlabels (nth rshape 1)]
+      (->> (into-array (list (make-array Float nlabels) (make-array Float nlabels)))
+           (.copyTo result)
+           (nth 0)))))
+
 (defn -main []
   (prn :imported-tensorflow-version (. TensorFlow version))
   (let [graph-pb (load-byte-array graph-pb-path)
         labels (load-labels graph-labels-path)
         image-bytes (load-byte-array image-path)
-        normalized-image (image-bytes->normalized-image image-bytes)]
+        normalized-image (image-bytes->normalized-image image-bytes)
+        label-probabilities (get-label-probabilities graph-pb normalized-image)]
+    (prn label-probabilities)
     (prn :graph-byte-size (count graph-pb))
     (prn :label-count (count labels))
     (prn :last-label (last labels))))
