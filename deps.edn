@@ -1,2 +1,2 @@
 {:deps
- {org.tensorflow/tensorflow {:mvn/version "1.7.0"}}}
+ {org.tensorflow/tensorflow {:mvn/version "1.8.0"}}}
