@@ -43,3 +43,4 @@ MIT
 - [Maven Repository: org.tensorflow » tensorflow](https://mvnrepository.com/artifact/org.tensorflow/tensorflow)
 - [tensorflow/tensorflow/java/src/main/java/org/tensorflow/examples/LabelImage.java](https://github.com/tensorflow/tensorflow/blob/master/tensorflow/java/src/main/java/org/tensorflow/examples/LabelImage.java)
 - [Stuck with type hints in clojure for generic class](https://stackoverflow.com/questions/32122495/stuck-with-type-hints-in-clojure-for-generic-class)
+- [make-array](https://clojuredocs.org/clojure.core/make-array)

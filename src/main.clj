@@ -113,15 +113,14 @@
                    (.get 0)
                    (.expect Float))
         rshape (.shape result)]
-    (prn rshape)
-    (prn :nth0 (nth rshape 0))
-    (prn :nth1 (nth rshape 1))
+    ;(prn :nth0 (nth rshape 0))
+    ;(prn :nth1 (nth rshape 1))
     #_(when (or (not= 2 (.numDimensions result)) (not= 1 (nth rshape 0)))
       (throw (RuntimeException "unexpected dimension or shape")))
-    (let [nlabels (nth rshape 1)]
-      (->> (into-array (list (make-array Float nlabels) (make-array Float nlabels)))
-           (.copyTo result)
-           (nth 0)))))
+    (let [nlabels (nth rshape 1)
+          array-result (make-array Float/TYPE 1 nlabels)]
+      (.copyTo result array-result)
+      (nth array-result 0))))
 
 (defn -main []
   (prn :imported-tensorflow-version (. TensorFlow version))
