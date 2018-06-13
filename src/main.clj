@@ -23,7 +23,7 @@
 
 (defn get-constant
   ([g name value type]
-   (prn name value type)
+   ;(prn name value type)
    (let [t (Tensor/create value)]
      (-> (.opBuilder g "Const" name)
          (.setAttr "dtype" (DataType/fromClass type))
@@ -126,17 +126,14 @@
   (prn :imported-tensorflow-version (. TensorFlow version))
   (let [graph-pb (load-byte-array graph-pb-path)
         labels (load-labels graph-labels-path)
-        image-bytes (load-byte-array image-path)
-        normalized-image (image-bytes->normalized-image image-bytes)
-        label-probabilities (get-label-probabilities graph-pb normalized-image)
-        sorted-probabilities (reverse (sort-by second (map-indexed vector label-probabilities)))]
-    (prn label-probabilities)
-    (prn :graph-byte-size (count graph-pb))
-    (prn :label-count (count labels))
-    (prn :last-label (last labels))
+        sorted-probs (->> (load-byte-array image-path)
+                          image-bytes->normalized-image
+                          (get-label-probabilities graph-pb)
+                          (map-indexed vector)
+                          (sort-by second)
+                          reverse)]
     (prn :top-labels)
     (doseq [i (range 5)
-            :let [p (nth sorted-probabilities i)
-                  label (nth labels (first p))
-                  prob (second p)]]
+            :let [[label-i prob] (nth sorted-probs i)
+                  label (nth labels label-i)]]
       (prn label prob))))
