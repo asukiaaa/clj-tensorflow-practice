@@ -37,6 +37,7 @@ MIT
 
 # References
 
+- [ClojureでTensorFlowの物体判別プログラムを動かしてみた](http://asukiaaa.blogspot.com/2018/06/clojuretensorflow.html)
 - [kieranbrowne/clojure-tensorflow-interop](https://github.com/kieranbrowne/clojure-tensorflow-interop)
 - [Installing TensorFlow for Java](https://www.tensorflow.org/install/install_java)
 - [TensorFlow for Java](https://github.com/tensorflow/tensorflow/blob/master/tensorflow/java/README.md)
